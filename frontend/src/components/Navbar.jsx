@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.jsx';
+import ThemeToggle from './ThemeToggle.jsx';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
 
   return (
-    <nav className="bg-white shadow-lg border-b border-gray-100">
+    <nav className="bg-white dark:bg-gray-900 shadow-lg border-b border-gray-100 dark:border-gray-700 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
@@ -15,14 +16,15 @@ export default function Navbar() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
-              <span className="text-xl font-bold text-gray-900">SBMS</span>
+              <span className="text-xl font-bold text-gray-900 dark:text-white">SBMS</span>
             </Link>
           </div>
           
           <div className="flex items-center space-x-4">
             {user ? (
               <>
-                <span className="text-sm text-gray-600">Welcome, {user.name}</span>
+                <span className="text-sm text-gray-600 dark:text-gray-300">Welcome, {user.name}</span>
+                <ThemeToggle />
                 <button
                   onClick={logout}
                   className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg"
@@ -31,12 +33,15 @@ export default function Navbar() {
                 </button>
               </>
             ) : (
-              <Link
-                to="/login"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg"
-              >
-                Login
-              </Link>
+              <>
+                <ThemeToggle />
+                <Link
+                  to="/login"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg"
+                >
+                  Login
+                </Link>
+              </>
             )}
           </div>
         </div>
